@@ -97,7 +97,6 @@ def load_data(city, month, day):
     if month != 'all':
         # use the index of the months list to get the corresponding int
         month = MONTHS.index(month) + 1
-        print(month)
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
 
@@ -116,12 +115,16 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-    comm_month = MONTHS[df['month'].mode()[0] - 1]
+    comm_month = MONTHS[df['month'].mode()[0] - 1].title()
     print("The most common month is: " + comm_month)
 
     # display the most common day of week
+    print("The most common day of week is: " +
+          str(df['day_of_week'].mode()[0]))
 
     # display the most common start hour
+    comm_start = df['Start Time'].dt.hour.mode()[0]
+    print("The most common start time is: " + str(comm_start))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-' * 40)
