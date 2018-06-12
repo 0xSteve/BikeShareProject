@@ -1,3 +1,8 @@
+'''
+    Explore US Bikeshare Data Project
+    Modified by: Steve
+    Last Modification: June 12, 2:43PM EDT
+'''
 import time
 import pandas as pd
 import sys
