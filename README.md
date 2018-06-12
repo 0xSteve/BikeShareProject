@@ -42,6 +42,10 @@ You might want to quit from the program while selecting the city, month, and day
 just send a keyboard interrupt (Ctrl + c). The program will ask you if you really want to
 quit, just type "Y" or "y" and the program will exit immediately.
 
+##References
+This site has a nice list of the possible exceptions that python will throw:
+https://www.tutorialspoint.com/python/python_exceptions.htm
+
 
 ## Thanks!
 Thanks for taking a look at my code! I hope you enjoyed it in some capacity or another. :D
