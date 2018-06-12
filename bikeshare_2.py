@@ -1,10 +1,13 @@
 import time
 import pandas as pd
 import numpy as np
+import sys
 
 CITY_DATA = {'chicago': 'chicago.csv',
              'new york city': 'new_york_city.csv',
              'washington': 'washington.csv'}
+MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'all']
+DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'all']
 
 
 def get_filters():
@@ -27,10 +30,43 @@ def get_filters():
     # get user input for day of week (all, monday, tuesday, ... sunday)
 
     while(True):
-        city = 'chicago'
-        month = 'january'
-        day = 'tuesday'
-        break
+        try:
+            resp = 'n'
+            city = input("What city would you like to use? \n")
+            city = city.lower()
+
+            if(city not in CITY_DATA):
+                raise KeyError(city.title() + " is not a possible city." +
+                               " Try again.")
+
+            month = input("What month would you like to use? \n")
+            month = month.lower()
+            # Nor this one.
+            if(month not in MONTHS):
+                raise IndexError("Month " + month.title() + " ")
+
+            day = input("What day would you like to use? \n")
+            day = day.lower()
+            if(day not in DAYS):
+                raise IndexError("Day " + day.title() + " ")
+
+            break
+
+        except KeyboardInterrupt:  # Should I stay or should I go?
+            # Given a keyboard interrupt, determine if the user wants to quit.
+            resp = input("\nYou sent a keyboard interrupt! Do you want to " +
+                         "quit? (y/N)\n")
+            if(resp.lower() == 'y'):
+                break
+        except KeyError as err:
+            print(str(err))
+        except IndexError as err:
+            print(str(err) + "is not available. Try again.")
+        except Exception as ex:
+            print(str(ex) + " error occurred. Try again.")
+
+    if resp.lower() == "y":
+        sys.exit()
 
     print('-' * 40)
     return city, month, day
@@ -60,8 +96,7 @@ def load_data(city, month, day):
     # filter by month if applicable
     if month != 'all':
         # use the index of the months list to get the corresponding int
-        months = ['january', 'february', 'march', 'april', 'may', 'june']
-        month = months.index(month) + 1
+        month = MONTHS.index(month) + 1
         print(month)
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
@@ -81,6 +116,8 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
+    comm_month = MONTHS[df['month'].mode()[0] - 1]
+    print("The most common month is: " + comm_month)
 
     # display the most common day of week
 
