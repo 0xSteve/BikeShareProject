@@ -1,6 +1,5 @@
 import time
 import pandas as pd
-import numpy as np
 import sys
 
 CITY_DATA = {'chicago': 'chicago.csv',
@@ -120,7 +119,7 @@ def time_stats(df):
     print("The most common month is: " + comm_month)
 
     # display the most common day of week
-    print("The most common day of week is: " +
+    print("The most common day of the week is: " +
           str(df['day_of_week'].mode()[0]))
 
     # display the most common start hour
@@ -139,15 +138,20 @@ def station_stats(df):
 
     # display most commonly used start station
     pop_start = df['Start Station'].mode()[0]
-    print("The most popular start station is: " + pop_start)
+    count = df[df['Start Station'] == pop_start].count()[0]
+    print("The most popular start station is: " + pop_start + ", with a" +
+          " count of " + str(count) + ".")
 
     # display most commonly used end station
     pop_end = df['End Station'].mode()[0]
-    print("The most popular end station is: " + pop_end)
+    count = df[df['End Station'] == pop_end].count()[0]
+    print("The most popular end station is: " + pop_end + ", with a" +
+          " count of " + str(count) + ".")
 
     # display most frequent combination of start station and end station trip
-    pop_station = pd.concat([df['Start Station'], df['End Station']]).mode()[0]
-    print("The most popular station is: " + pop_station)
+    pop_station = pd.concat([df['Start Station'], df['End Station']])
+    pop_station_name = pop_station.mode()[0]
+    print("The most popular station is: " + pop_station_name + ".")
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-' * 40)
