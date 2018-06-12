@@ -176,11 +176,21 @@ def user_stats(df):
     start_time = time.time()
 
     # Display counts of user types
-
+    user_type_count = df['User Type'].value_counts()
+    print("There are  " + str(user_type_count[1]) + " users, and " +
+          str(user_type_count[0]) + " subscribers.")
     # Display counts of gender
-
+    user_genders = df['Gender'].value_counts()
+    print("There are  " + str(user_genders[0]) + " males, and " +
+          str(user_genders[1]) + " females.")
     # Display earliest, most recent, and most common year of birth
-
+    earliest_BY = str(df['Birth Year'].dropna().min())
+    most_recent_BY = str(df['Birth Year'].dropna().max())
+    most_common_BY = str(df['Birth Year'].dropna().mode()[0])
+    # Drop not a number without modifying the column.
+    print("The earliest birth year is: " + earliest_BY + ".\n The " +
+          "most recent birth year is: " + most_recent_BY + ".\n The " +
+          "most common birth year is: " + most_common_BY + ".")
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-' * 40)
 
