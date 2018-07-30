@@ -160,9 +160,8 @@ def station_stats(df):
     pop_station_df = df[['Start Station', 'End Station']]
     station_group = df.groupby(['Start Station', 'End Station'], sort=True)
     pop_station_count = station_group.count()
-    pop_station_name = pop_station_count.idxmax()[0]
-    print("The most popular station is: " + str(pop_station_name) +
-          " with a count of " + pop_station_count +".")
+    pop_station_name = station_group.count().idxmax()[0]
+    print("The most popular station is: " + str(pop_station_name))
 
     print("\nThis took %s seconds." %  (time.time() - start_time))
     print('-' * 40)
@@ -195,17 +194,19 @@ def user_stats(df):
     print("There are  " + str(user_type_count[1]) + " users, and " +
           str(user_type_count[0]) + " subscribers.")
     # Display counts of gender
-    user_genders = df['Gender'].value_counts()
-    print("There are  " + str(user_genders[0]) + " males, and " +
-          str(user_genders[1]) + " females.")
+    if 'Gender' in df.columns:
+        user_genders = df['Gender'].value_counts()
+        print("There are  " + str(user_genders[0]) + " males, and " +
+              str(user_genders[1]) + " females.")
     # Display earliest, most recent, and most common year of birth
-    earliest_BY = str(df['Birth Year'].dropna().min())
-    most_recent_BY = str(df['Birth Year'].dropna().max())
-    most_common_BY = str(df['Birth Year'].dropna().mode()[0])
-    # Drop not a number without modifying the column.
-    print("The earliest birth year is: " + earliest_BY + ".\n The " +
-          "most recent birth year is: " + most_recent_BY + ".\n The " +
-          "most common birth year is: " + most_common_BY + ".")
+    if 'Birth Year' in df.columns:
+        earliest_BY = str(df['Birth Year'].dropna().min())
+        most_recent_BY = str(df['Birth Year'].dropna().max())
+        most_common_BY = str(df['Birth Year'].dropna().mode()[0])
+        # Drop not a number without modifying the column.
+        print("The earliest birth year is: " + earliest_BY + ".\n The " +
+              "most recent birth year is: " + most_recent_BY + ".\n The " +
+              "most common birth year is: " + most_common_BY + ".")
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-' * 40)
 
