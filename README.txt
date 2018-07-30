@@ -45,6 +45,7 @@ quit, just type "Y" or "y" and the program will exit immediately.
 ## References
 This site has a nice list of the possible exceptions that python will throw:
 https://www.tutorialspoint.com/python/python_exceptions.htm
+https://stackoverflow.com/questions/33440640/python-pandas-pandas-core-groupby-dataframegroupby-object-at#33440789
 
 
 ## Thanks!

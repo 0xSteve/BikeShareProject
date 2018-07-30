@@ -154,11 +154,17 @@ def station_stats(df):
           " count of " + str(count) + ".")
 
     # display most frequent combination of start station and end station trip
-    pop_station = pd.concat([df['Start Station'], df['End Station']])
-    pop_station_name = pop_station.mode()[0]
-    print("The most popular station is: " + pop_station_name + ".")
+    # Apparently, what I did was wrong, but it passed my test cases? Revise test
+    # cases? I'll have to dig deeper, but for now...
+    #pop_station = pd.concat([df['Start Station'], df['End Station']])
+    pop_station_df = df[['Start Station', 'End Station']]
+    station_group = df.groupby(['Start Station', 'End Station'], sort=True)
+    pop_station_count = station_group.count()
+    pop_station_name = pop_station_count.idxmax()[0]
+    print("The most popular station is: " + str(pop_station_name) +
+          " with a count of " + pop_station_count +".")
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %s seconds." %  (time.time() - start_time))
     print('-' * 40)
 
 
