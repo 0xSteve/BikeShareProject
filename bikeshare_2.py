@@ -220,7 +220,9 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
-
+        wants_raw = input('\nWould you like to see raw data? Enter yes or no.\n')
+        if wants_raw.lower() == 'yes':
+            print(df.head())
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
